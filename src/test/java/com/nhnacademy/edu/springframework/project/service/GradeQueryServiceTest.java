@@ -15,9 +15,9 @@ class GradeQueryServiceTest {
     Students students;
     @BeforeEach
     void init() {
-        scores = CsvScores.getInstance();
+        scores = new CsvScores();
         scores.load();
-        students = CsvStudents.getInstance();
+        students = new CsvStudents();
         students.load();
         students.merge(scores.findAll());
 

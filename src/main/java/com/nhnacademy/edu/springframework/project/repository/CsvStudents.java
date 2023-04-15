@@ -14,7 +14,6 @@ import java.util.Map;
 public class CsvStudents implements Students {
 
     private Map<Integer,Student> studentMap;
-    private CsvStudents(){}
 
     /** TODO 3 :
      * Java Singleton 패턴으로 getInstance() 를 구현하세요.

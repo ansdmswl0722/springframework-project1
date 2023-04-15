@@ -15,7 +15,6 @@ import java.util.List;
 public class CsvScores implements Scores {
     private List<Score> scoreList;
 
-    private CsvScores(){}
 
     @Override
     public void load() {

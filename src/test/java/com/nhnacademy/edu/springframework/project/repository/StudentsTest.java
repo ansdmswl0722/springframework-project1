@@ -2,6 +2,7 @@ package com.nhnacademy.edu.springframework.project.repository;
 
 import com.nhnacademy.edu.springframework.project.service.Student;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -9,11 +10,16 @@ import java.util.*;
 
 class StudentsTest {
 
+    Students students;
+
+    @BeforeEach
+    void unit() {
+        students = new CsvStudents();
+        students.load();
+    }
+
     @Test
     void testLoad() {
-        Students students = CsvStudents.getInstance();
-        students.load();
-
         Map<Integer, Student> studentMap = new HashMap<>();
         studentMap.put(1,new Student(1,"A"));
         studentMap.put(2,new Student(2,"B"));
@@ -21,13 +27,10 @@ class StudentsTest {
         studentMap.put(4,new Student(4,"D"));
         int actual = students.findAll().size();
         Assertions.assertThat(actual).isEqualTo(studentMap.size());
-
     }
 
     @Test
     void testFindAll() {
-        Students students = CsvStudents.getInstance();
-        students.load();
         Map<Integer, Student> studentMap = new HashMap<>();
         studentMap.put(1,new Student(1,"A"));
         studentMap.put(2,new Student(2,"B"));
@@ -35,14 +38,11 @@ class StudentsTest {
         studentMap.put(4,new Student(4,"D"));
         Collection<Student> actual = students.findAll();
         Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(studentMap.values());
-
     }
 
     @Test
     void testMerge() {
-        Students students = CsvStudents.getInstance();
-        students.load();
-        Scores csvScores = CsvScores.getInstance();
+        Scores csvScores = new CsvScores();
         csvScores.load();
         List<Score> scores = csvScores.findAll();
         students.merge(scores);
@@ -58,7 +58,5 @@ class StudentsTest {
         studentMap.get(3).setScore(new Score(3,70));
 
         Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(studentMap.values());
-
-
     }
 }

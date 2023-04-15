@@ -1,18 +1,25 @@
 package com.nhnacademy.edu.springframework.project.repository;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 class ScoresTest {
+    Scores csvScores ;
+
+    @BeforeEach
+    void init() {
+        csvScores = new CsvScores();
+        csvScores.load();
+
+    }
 
     @Test
     void testLoad() {
-        Scores csvScores = CsvScores.getInstance();
-        csvScores.load();
-
         List<Score> scoreList = new ArrayList<>();
         scoreList.add(new Score(1,30));
         scoreList.add(new Score(2,80));
@@ -23,8 +30,6 @@ class ScoresTest {
 
     @Test
     void testFindAll() {
-        Scores csvScores = CsvScores.getInstance();
-        csvScores.load();
         List<Score> scoreList = new ArrayList<>();
         scoreList.add(new Score(1,30));
         scoreList.add(new Score(2,80));
