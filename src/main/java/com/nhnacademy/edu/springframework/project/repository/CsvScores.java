@@ -1,6 +1,8 @@
 package com.nhnacademy.edu.springframework.project.repository;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,22 +11,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository("csvScores")
 public class CsvScores implements Scores {
     private List<Score> scoreList;
 
     private CsvScores(){}
 
-    /** TODO 2 :
-     * Java Singleton 패턴으로 getInstance() 를 구현하세요.
-     **/
-    private static class SingleInstancesHolder {
-        private static final CsvScores INSTANCE = new CsvScores();
-    }
-    public static Scores getInstance() {
-        return SingleInstancesHolder.INSTANCE;
-    }
-
-    // TODO 5 : score.csv 파일에서 데이터를 읽어 멤버 변수에 추가하는 로직을 구현하세요.
     @Override
     public void load() {
         try (InputStream inputStream = new ClassPathResource("data/score.csv").getInputStream();

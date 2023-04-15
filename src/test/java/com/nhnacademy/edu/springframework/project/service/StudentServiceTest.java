@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class StudentServiceTest {
     Scores scores ;
     Students students;
@@ -25,7 +23,7 @@ class StudentServiceTest {
 
     @Test
     void getPassedStudents() {
-        DefaultStudentService service = new DefaultStudentService();
+        DefaultStudentService service = new DefaultStudentService(students);
         Collection<Student> actual = service.getPassedStudents();
 
         Map<Integer, Student> studentMap = new HashMap<>();
@@ -39,7 +37,7 @@ class StudentServiceTest {
 
     @Test
     void getStudentsOrderByScore() {
-        DefaultStudentService service = new DefaultStudentService();
+        DefaultStudentService service = new DefaultStudentService(students);
         Collection<Student> actual = service.getStudentsOrderByScore();
 
         Map<Integer, Student> studentMap = new HashMap<>();

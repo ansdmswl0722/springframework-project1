@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class GradeQueryServiceTest {
 
     Scores scores ;
@@ -27,7 +25,7 @@ class GradeQueryServiceTest {
 
     @Test
     void testGetScoreByStudentName() {
-        DefaultGradeQueryService service = new DefaultGradeQueryService();
+        DefaultGradeQueryService service = new DefaultGradeQueryService(students, scores);
         List<Score> actual = service.getScoreByStudentName("A");
         List<Score> scoreList = new ArrayList<>();
         scoreList.add(new Score(1,30));
@@ -37,7 +35,7 @@ class GradeQueryServiceTest {
 
     @Test
     void testGetScoreByStudentSeq() {
-        DefaultGradeQueryService service = new DefaultGradeQueryService();
+        DefaultGradeQueryService service = new DefaultGradeQueryService(students, scores);
         Score actual = service.getScoreByStudentSeq(1);
         Score score = new Score(1,30);
         Assertions.assertThat(actual).usingRecursiveComparison().isEqualTo(score);
