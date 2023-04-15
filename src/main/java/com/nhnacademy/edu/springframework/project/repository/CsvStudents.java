@@ -1,12 +1,9 @@
 package com.nhnacademy.edu.springframework.project.repository;
 
 import com.nhnacademy.edu.springframework.project.service.Student;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +11,6 @@ import java.util.Map;
 
 public class CsvStudents implements Students {
 
-    private String studentCsvUrl = "/Users/muneunji/Downloads/springframework-project1/src/main/resources/data/student.csv";
     private Map<Integer,Student> studentMap;
     private CsvStudents(){}
 
@@ -32,9 +28,9 @@ public class CsvStudents implements Students {
     // 데이터를 적재하고 읽기 위해서, 적절한 자료구조를 사용하세요.
     @Override
     public void load() {
-        try(InputStream inputStream = new FileSystemResource(studentCsvUrl).getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        ){
+        try (InputStream inputStream = new ClassPathResource("data/student.csv").getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        ) {
             String line ="";
             studentMap = new HashMap<>();
             while ((line=reader.readLine()) != null) {
@@ -43,7 +39,6 @@ public class CsvStudents implements Students {
                 Student student = new Student(seq,array[1]);
                 studentMap.put(seq,student);
             }
-            System.out.println(studentMap);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -65,5 +60,6 @@ public class CsvStudents implements Students {
                    Student student = studentMap.get(score.getStudentSeq());
                    student.setScore(score);
                });
+        System.out.println(studentMap);
     }
 }

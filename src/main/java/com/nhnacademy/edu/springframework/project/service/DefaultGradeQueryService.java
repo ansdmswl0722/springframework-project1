@@ -2,7 +2,6 @@ package com.nhnacademy.edu.springframework.project.service;
 
 import com.nhnacademy.edu.springframework.project.repository.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,7 @@ public class DefaultGradeQueryService implements GradeQueryService {
         // TODO 6 : 학번으로 점수를 반환합니다. seq 인자가 학번입니다.
         Scores scores = CsvScores.getInstance();
         return scores.findAll().stream()
-                .filter(score -> score.getScore()==seq)
+                .filter(score -> score.getStudentSeq()==seq)
                 .findAny().get();
 
     }
