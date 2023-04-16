@@ -16,10 +16,9 @@ class GradeQueryServiceTest {
     @BeforeEach
     void init() {
         scores = new CsvScores();
-        scores.load();
         students = new CsvStudents();
-        students.load();
-        students.merge(scores.findAll());
+        CsvDataLoadService service = new CsvDataLoadService(scores,students);
+        service.loadAndMerge();
 
     }
 
